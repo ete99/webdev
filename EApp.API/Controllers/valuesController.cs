@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EApp.API.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace EApp.API.Controllers
 {
+    [Authorize] // using this methods require authorization
     [ApiController]
     [Route("api/[controller]")]
     public class valuesController : ControllerBase
@@ -26,7 +28,7 @@ namespace EApp.API.Controllers
             var values = await _context.Values.ToListAsync();
             return Ok(values);
         }
-
+        [AllowAnonymous] // anyone can use without authorization
         [HttpGet("{id}")]
         public async Task<IActionResult> GetValue(int id)
         {
