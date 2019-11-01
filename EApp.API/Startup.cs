@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using EApp.API.Data;
 using EApp.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -34,10 +35,15 @@ namespace EApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews();
+            services.AddRazorPages();
             services.AddDbContext<DataContext>(x=> x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            // services.AddMvc().AddMvcOptions(options => options.EnableEndpointRouting = false);
             services.AddControllers();
             services.AddCors();
+            services.AddAutoMapper(typeof(FullRepository).Assembly);
             services.AddScoped<IAuthRepository, AuthRepository>(); // we add the authentication repo/functions but scoped so we create an instance for each 
+            services.AddScoped<IFullRepository, FullRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) // add the authentication middleware
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -87,6 +93,7 @@ namespace EApp.API
             {
                 endpoints.MapControllers();
             });
+            // app.UseMvc();
         }
     }
 }
