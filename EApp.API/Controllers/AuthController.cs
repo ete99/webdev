@@ -48,7 +48,7 @@ namespace EApp.API.Controllers
             var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 
             if (userFromRepo == null)
-                return Unauthorized();
+                return Unauthorized("hpol");
 
             // then build the token:
             var claims = new[]
