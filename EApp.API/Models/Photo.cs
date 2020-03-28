@@ -8,6 +8,7 @@ namespace EApp.API.Models
         public string Url { get; set; }
         public DateTime DateUploaded { get; set; }
         public string Description { get; set; }
+        public string PhotoId { get; set; }
         public bool IsMain { get; set; }
         public User User { get; set; }
         public int UserId { get; set; }

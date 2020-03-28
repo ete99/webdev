@@ -42,6 +42,7 @@ namespace EApp.API
             services.AddControllers();
             services.AddCors();
             services.AddAutoMapper(typeof(FullRepository).Assembly);
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddScoped<IAuthRepository, AuthRepository>(); // we add the authentication repo/functions but scoped so we create an instance for each 
             services.AddScoped<IFullRepository, FullRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) // add the authentication middleware

@@ -65,7 +65,7 @@ namespace EApp.API.Data
 
         public async Task<bool> UserExists(string username)
         {
-            if(await _context.Users.AnyAsync(x => x.Username ==username))
+            if(await _context.Users.AnyAsync(x => x.Username == username))
                 return true;
                 
             return false;
